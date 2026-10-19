@@ -1,0 +1,19 @@
+# Source materials (CV, raw docs) — not meant for the public repo
+/Content/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.cache/
+.astro/
+
+# Env / secrets
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
