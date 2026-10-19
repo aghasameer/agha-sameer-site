@@ -51,7 +51,7 @@ const stack = [
     <div class="hero-photo">
       <div class="photo-frame" id="photo-frame">
         <img
-          src="/images/profile.jpg"
+          src="/images/profile.png"
           alt="Agha Sameer"
           loading="eager"
           onerror="this.closest('.photo-frame').classList.add('no-photo'); this.remove();"
@@ -247,6 +247,13 @@ const stack = [
     object-fit: cover;
     object-position: center center;
     filter: grayscale(0.55) contrast(1.08) brightness(0.92) sepia(0.12);
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 55%, rgba(16, 20, 27, 0.6) 100%);
+    pointer-events: none;
   }
   .photo-placeholder {
     display: none;
