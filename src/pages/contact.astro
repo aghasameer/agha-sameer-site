@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TODO: replace with the real Turnstile site key once the widget is created
+// in the Cloudflare dashboard (Turnstile → Add site). The site key is public
+// and safe to ship client-side — only the secret key (server-side, in
+// functions/api/contact.js) needs to stay private.
+const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // Cloudflare's always-pass test key
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Agha Sameer — CTO, Zadip Group."
+>
+  <section class="container">
+    <p class="kicker">Contact</p>
+    <h1>Say something worth reading</h1>
+    <p class="lede">
+      This goes straight to my inbox, filtered through a bot-check — no
+      mailing lists, no auto-responders pretending to be me.
+    </p>
+
+    <form id="contact-form" novalidate>
+      <label>
+        <span class="mono">Name</span>
+        <input type="text" name="name" required maxlength="120" autocomplete="name" />
+      </label>
+      <label>
+        <span class="mono">Email</span>
+        <input type="email" name="email" required maxlength="180" autocomplete="email" />
+      </label>
+      <label>
+        <span class="mono">Message</span>
+        <textarea name="message" required maxlength="4000" rows="6"></textarea>
+      </label>
+
+      <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
+      <button type="submit" class="cta">Send</button>
+      <p id="form-status" class="mono" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</BaseLayout>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!status) return;
+
+    const formData = new FormData(form);
+    const turnstileToken = formData.get('cf-turnstile-response');
+
+    if (!turnstileToken) {
+      status.textContent = 'Please complete the verification check.';
+      return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (submitButton) submitButton.disabled = true;
+    status.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message'),
+          turnstileToken,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        status.textContent = 'Sent — thanks, I’ll reply soon.';
+        form.reset();
+        // @ts-ignore — Turnstile global injected by the widget script
+        window.turnstile?.reset();
+      } else {
+        status.textContent = data.error || 'Something went wrong — try again.';
+      }
+    } catch {
+      status.textContent = 'Network error — try again in a moment.';
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  section {
+    padding-block: 64px 96px;
+  }
+  h1 {
+    margin-top: 16px;
+    font-size: clamp(26px, 4vw, 36px);
+  }
+  .lede {
+    margin-top: 16px;
+    max-width: 56ch;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  form {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 520px;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  label span {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  input,
+  textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14.5px;
+  }
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--accent-dim);
+    outline-offset: 1px;
+  }
+  textarea {
+    resize: vertical;
+  }
+
+  .cta {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    padding: 11px 24px;
+    border-radius: 7px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+  .cta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  #form-status {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    min-height: 1.2em;
+  }
+</style>

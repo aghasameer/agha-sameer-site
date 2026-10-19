@@ -12,6 +12,7 @@ dist/
 # Env / secrets
 .env
 .env.*
+.dev.vars
 
 # OS / editor
 .DS_Store

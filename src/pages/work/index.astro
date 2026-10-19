@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const caseStudies = (await getCollection('case-studies', ({ data }) => !data.draft)).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+---
+
+<BaseLayout
+  title="Work"
+  description="Case studies and products — seventeen years of government and enterprise software, from airport PA systems to SaaS platforms serving 700,000+ users."
+>
+  <section class="intro container">
+    <p class="kicker">Work</p>
+    <h1>Case studies & products</h1>
+    <p class="lede">
+      Two kinds of proof: products I built and still run at Zadip Group, and
+      case studies from projects delivered for government and enterprise
+      clients. More detail is being added to each page over time.
+    </p>
+  </section>
+
+  <section class="list container-wide">
+    <div class="list-head">
+      <h2>Case studies</h2>
+    </div>
+    <div class="grid">
+      {caseStudies.map((cs) => (
+        <a href={`/work/case-studies/${cs.id}/`} class="card">
+          <p class="client mono">{cs.data.client}</p>
+          <h3>{cs.data.title}</h3>
+          {cs.data.figures && cs.data.figures.length > 0 && (
+            <p class="figure mono">{cs.data.figures[0].value} — {cs.data.figures[0].label}</p>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="list container-wide">
+    <div class="list-head">
+      <h2>Products</h2>
+    </div>
+    <div class="grid">
+      {products.map((p) => (
+        <a href={`/work/products/${p.id}/`} class="card">
+          <div class="logo-stage">
+            <img src={`/logos/products/${p.id}.png`} alt={p.data.title} loading="lazy" />
+          </div>
+          <p class="desc">{p.data.tagline}</p>
+          {p.data.figure && <p class="figure mono">{p.data.figure}</p>}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: 64px 40px;
+  }
+  .intro h1 {
+    font-size: clamp(28px, 4.2vw, 38px);
+  }
+  .intro .lede {
+    margin-top: 16px;
+    max-width: 64ch;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .list {
+    padding-block: 40px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .list-head h2 {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 22px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+  .client {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .card h3 {
+    font-size: 16.5px;
+    line-height: 1.35;
+  }
+  .logo-stage {
+    height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .logo-stage img {
+    height: 100%;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .figure {
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-soft);
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('case-studies', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, client, sector, year, figures } = entry.data;
+---
+
+<BaseLayout title={title} description={`${client} — ${title}`}>
+  <article class="container">
+    <p class="kicker"><a href="/work/">Work</a> / Case study</p>
+    <p class="client mono">{client} · {sector}{year ? ` · ${year}` : ''}</p>
+    <h1>{title}</h1>
+
+    {figures && figures.length > 0 && (
+      <div class="figures">
+        {figures.map((f) => (
+          <div class="fig">
+            <div class="num mono">{f.value}</div>
+            <div class="label mono">{f.label}</div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <a class="back" href="/work/">← Back to all work</a>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    padding-block: 56px 80px;
+  }
+  .kicker a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .client {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  h1 {
+    margin-top: 10px;
+    font-size: clamp(26px, 4vw, 36px);
+    max-width: 24ch;
+    line-height: 1.2;
+  }
+  .figures {
+    margin-top: 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .fig .num {
+    font-size: 24px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .fig .label {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+  .prose {
+    margin-top: 36px;
+    max-width: 68ch;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  .prose :global(p) {
+    margin-bottom: 18px;
+  }
+  .prose :global(blockquote) {
+    margin: 24px 0;
+    padding: 16px 20px;
+    border-left: 2px solid var(--accent-dim);
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-faint);
+    font-size: 14px;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>

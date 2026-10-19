@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Tech Parables"
+  description="Lessons from the stack, told straight — Agha Sameer's blog on engineering, leadership, and the occasional parable."
+>
+  <section class="intro container">
+    <div class="brand">
+      <div class="mark">T·P</div>
+      <div>
+        <p class="kicker">The blog</p>
+        <h1>Tech Parables</h1>
+      </div>
+    </div>
+    <p class="lede">Lessons from the stack, told straight.</p>
+  </section>
+
+  {posts.length === 0 ? (
+    <section class="empty container">
+      <p class="mono">No posts published yet — first ones (the 3-2-1 Prioritization Technique, the Holy Data Octet) are being adapted from LinkedIn and will land here shortly.</p>
+    </section>
+  ) : (
+    <section class="list container">
+      {posts.map((post) => (
+        <a href={`/tech-parables/${post.id}/`} class="post-card">
+          <p class="date mono">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+          <h2>{post.data.title}</h2>
+          <p class="desc">{post.data.description}</p>
+        </a>
+      ))}
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: 64px 32px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .intro h1 {
+    font-size: clamp(26px, 4vw, 34px);
+    margin-top: 2px;
+  }
+  .intro .lede {
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+
+  .empty {
+    padding-block: 24px 80px;
+    color: var(--text-faint);
+    font-size: 13px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .list {
+    padding-block: 24px 80px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .post-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .post-card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+  .date {
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+  .post-card h2 {
+    margin-top: 8px;
+    font-size: 18px;
+  }
+  .desc {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+</style>

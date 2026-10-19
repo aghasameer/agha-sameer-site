@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('products', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, tagline, stack, figure } = entry.data;
+---
+
+<BaseLayout title={title} description={`${title} — ${tagline}`}>
+  <article class="container">
+    <p class="kicker"><a href="/work/">Work</a> / Product</p>
+    <div class="logo-stage">
+      <img src={`/logos/products/${entry.id}.png`} alt={title} />
+    </div>
+    <p class="tagline">{tagline}</p>
+
+    {figure && <p class="figure mono">{figure}</p>}
+
+    {stack && stack.length > 0 && (
+      <div class="stack">
+        {stack.map((s) => (
+          <span class="chip mono">{s}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <a class="back" href="/work/">← Back to all work</a>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    padding-block: 56px 80px;
+  }
+  .kicker a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .logo-stage {
+    margin-top: 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+  .logo-stage img {
+    height: 100%;
+    width: auto;
+    max-width: 260px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .tagline {
+    margin-top: 14px;
+    font-size: clamp(18px, 2.6vw, 22px);
+    color: var(--text-muted);
+    max-width: 48ch;
+  }
+  .figure {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .stack {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    font-size: 11px;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 11px;
+  }
+  .prose {
+    margin-top: 32px;
+    max-width: 68ch;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  .prose :global(p) {
+    margin-bottom: 18px;
+  }
+  .prose :global(blockquote) {
+    margin: 24px 0;
+    padding: 16px 20px;
+    border-left: 2px solid var(--accent-dim);
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-faint);
+    font-size: 14px;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>

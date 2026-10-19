@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const certs = [
+  { src: '/logos/certs/csm.png', alt: 'Certified Scrum Master', label: 'CSM · Scrum Alliance' },
+  { src: '/logos/certs/psm.png', alt: 'Professional Scrum Master I', label: 'PSM I · Scrum.org' },
+  { src: '/logos/certs/pmp.png', alt: 'Project Management Professional', label: 'PMP · PMI' },
+  { src: '/logos/certs/togaf.png', alt: 'TOGAF 9 Certified', label: 'TOGAF® 9 · in progress', dim: true },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="CTO at Zadip Group — seventeen years turning ambiguous mandates into production systems, from call-center operations to six SaaS products."
+>
+  <section class="intro container">
+    <p class="kicker">About</p>
+    <h1>I didn't start in code. I started where code has to answer for itself.</h1>
+    <p class="lede">
+      Before architecture diagrams, there was a call center — the flight
+      operations desk at Smartlink BPO, coordinating flynas customer service
+      during the stretch where a dropped call meant a missed flight. That's
+      where I learned the thing that still drives how I build: a system's
+      quality isn't what's in the spec, it's what happens under pressure, in
+      front of someone who didn't choose to be there.
+    </p>
+  </section>
+
+  <section class="timeline container">
+    <h2>The long version</h2>
+    <div class="t-item">
+      <p class="t-role mono">2007 – 2008 · Smartlink BPO, Flynas</p>
+      <p>
+        Ran daily operations for an 80-agent customer-support team, cut the
+        dropped-call rate by 56% through weekly call-volume analysis, and
+        pushed through a digital-transformation initiative that lifted CSAT
+        by 29% and cut average handle time by over 40%. First lesson in
+        technology as a lever, not a decoration.
+      </p>
+    </div>
+    <div class="t-item">
+      <p class="t-role mono">2008 – 2012 · Orientec Group → Viable Dimensions</p>
+      <p>
+        Moved into project management proper — secured six-figure and
+        seven-figure projects (including a USD 6.2M portfolio at an 87%
+        closure rate), then ran the Saudi sales office for a US-based BPO,
+        building the discipline of planning, budgeting, and delivering
+        against a deadline someone else set.
+      </p>
+    </div>
+    <div class="t-item">
+      <p class="t-role mono">2012 – present · CTO, Zadip Group</p>
+      <p>
+        ICT and software projects lead, building SaaS products with a focus
+        on e-government services. Six flagship products, over 700,000 users
+        combined, and a team that ships 8–10 product increments a month. I
+        also write the business proposals that win the work — the pitch and
+        the build are the same discipline to me.
+      </p>
+    </div>
+  </section>
+
+  <section class="certs container">
+    <h2>Certifications</h2>
+    <div class="cert-grid">
+      {certs.map((c) => (
+        <div class="cert-card">
+          <div class="badge-plate" style={c.dim ? 'opacity:.6' : undefined}>
+            <img src={c.src} alt={c.alt} loading="lazy" />
+          </div>
+          <p class="mono">{c.label}</p>
+        </div>
+      ))}
+    </div>
+    <p class="also mono">
+      Also: Certified NSOS Professional (DIGINFO, advanced Linux admin, virtualization, cloud
+      architecture & VAPT) · MBA in progress, Cardiff Metropolitan University, expected 2026.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: 64px 48px;
+  }
+  .intro h1 {
+    font-size: clamp(26px, 4vw, 36px);
+    max-width: 20ch;
+    line-height: 1.22;
+  }
+  .intro .lede {
+    margin-top: 20px;
+    max-width: 68ch;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  .timeline {
+    padding-block: 48px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .timeline h2 {
+    font-size: 20px;
+    margin-bottom: 28px;
+  }
+  .t-item {
+    padding-block: 18px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .t-item:first-of-type {
+    border-top: none;
+  }
+  .t-role {
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .t-item p:not(.t-role) {
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 68ch;
+  }
+
+  .certs {
+    padding-block: 48px 72px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .certs h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+  }
+  .cert-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 18px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .badge-plate {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: #fdfcf9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .badge-plate img {
+    height: 58px;
+    width: auto;
+  }
+  .cert-card p {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .also {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-faint);
+    line-height: 1.7;
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, pubDate, originallyOn } = entry.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="container">
+    <p class="kicker"><a href="/tech-parables/">Tech Parables</a></p>
+    <h1>{title}</h1>
+    <p class="meta mono">
+      {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      {originallyOn && ` · originally on ${originallyOn}`}
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+    <a class="back" href="/tech-parables/">← All posts</a>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    padding-block: 56px 80px;
+  }
+  .kicker a {
+    text-decoration: none;
+    color: inherit;
+  }
+  h1 {
+    margin-top: 12px;
+    font-size: clamp(26px, 4vw, 36px);
+    max-width: 24ch;
+    line-height: 1.2;
+  }
+  .meta {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .prose {
+    margin-top: 32px;
+    max-width: 68ch;
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 16.5px;
+  }
+  .prose :global(p) {
+    margin-bottom: 20px;
+  }
+  .prose :global(h2) {
+    margin-top: 36px;
+    margin-bottom: 14px;
+    font-size: 22px;
+  }
+  .prose :global(blockquote) {
+    margin: 24px 0;
+    padding: 16px 20px;
+    border-left: 2px solid var(--accent-dim);
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>

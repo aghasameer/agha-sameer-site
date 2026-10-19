@@ -1,0 +1,63 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container-wide inner">
+    <div class="left">
+      <span class="kicker">Agha Sameer</span>
+      <p>CTO, Zadip Group — Riyadh, Saudi Arabia</p>
+    </div>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/aghasameer/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="/tech-parables/">Tech Parables</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+  <div class="container-wide fine-print mono">© {year} Agha Sameer. All opinions my own, all bugs somebody else's.</div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border-soft);
+    margin-top: 96px;
+    padding-block: 36px 24px;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .left p {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 13.5px;
+  }
+
+  .links {
+    display: flex;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+  }
+
+  .fine-print {
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+</style>
