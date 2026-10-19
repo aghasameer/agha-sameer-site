@@ -1,13 +1,19 @@
 ---
 title: Ehtwa
 tagline: Rewards & loyalty for local merchants
+tags: [Loyalty & Rewards, Fintech-adjacent, SaaS]
 stack: [PHP, Flutter, Swift, MySQL]
-figure: "120+ merchants in the first 2 months"
+role: I own Ehtwa end to end — product direction, architecture, and delivery.
+figures:
+  - label: Merchants onboarded
+    value: "120+"
+  - label: Time to reach it
+    value: "2 months"
 order: 4
 ---
 
-Ehtwa was launched to serve the combined user base of Ektefa and Nafeth, letting local businesses and stores advertise promotions and offers redeemable only by qualified users.
+Ektefa and Nafeth together put a large, captive user base in front of Zadip Group every day. Ehtwa was built to monetize that attention for local businesses.
 
-The platform reached over 120 merchants within its first two months live.
+I built and run Ehtwa as a rewards and loyalty platform that lets local merchants and stores advertise promotions redeemable only by qualified Ektefa and Nafeth users — a closed, trusted audience merchants can't reach any other way.
 
-> Deeper write-up pending.
+The platform reached over 120 merchants within its first two months live, validating the model fast.

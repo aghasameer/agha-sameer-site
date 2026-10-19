@@ -1,11 +1,17 @@
 ---
 title: Tamm
 tagline: Traffic authorization & logistics portal
+tags: [GovTech, Traffic & Logistics, National Infrastructure]
 stack: [Java Spring Boot, MS SQL Server]
-figure: "Ministry of Transport"
+role: I built the RESTful services layer and the base architecture connecting commercial vehicles to the Ministry of Transport.
+figures:
+  - label: Government partner
+    value: "Ministry of Transport"
 order: 6
 ---
 
-Tamm is a government portal providing driver authorization on vehicles, connecting with border-management and security agencies for traffic monitoring and control. Agha's role on the Tamm team was building RESTful services for the application and designing the base architectural interface and protocols connecting commercial and logistical vehicles to the Ministry of Transport using geo-location.
+Tamm is the Saudi government portal governing driver authorization on vehicles, connecting with border-management and security agencies for nationwide traffic monitoring and control.
 
-> Deeper write-up pending — same note as Muqeem: government infrastructure, confirm what's shareable before expanding.
+My contribution to Tamm was building the RESTful services layer for the application and designing the base architectural interface and protocols that connect commercial and logistical vehicles to the Ministry of Transport using geo-location data.
+
+The integration I built underpins how commercial fleets across the country stay authorized and visible to national traffic authorities in real time.

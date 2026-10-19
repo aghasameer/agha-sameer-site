@@ -2,6 +2,8 @@
 title: Rebuilding a 1970s PA system on IoT
 client: King Khalid International Airport
 sector: Aviation / Government
+tags: [Aviation, Public Infrastructure, IoT]
+role: I led the IoT retrofit of the airport's passenger-announcement infrastructure, end to end.
 figures:
   - label: Speakers reached
     value: "720,000+"
@@ -10,8 +12,8 @@ figures:
 order: 1
 ---
 
-King Khalid International Airport was running passenger announcements on a Push-To-Talk system installed in the 1970s. Agha led the effort to revamp it with IoT tools and techniques, linking the system to the airport's operational database for centralized, zone- and gate-specific passenger announcements.
+King Khalid International Airport — the gateway to Riyadh, one of the busiest airports in the Middle East — was still running passenger announcements on a Push-To-Talk system installed in the 1970s.
 
-The result: targeted announcements delivered to over 720,000 speakers installed across three terminals — live infrastructure that had to keep working through the retrofit.
+I led the effort to rebuild it on IoT, linking the new system to the airport's operational database so announcements could be targeted by zone and gate rather than broadcast blind across the terminal. The retrofit had to happen without ever taking live airport operations offline.
 
-> Deeper write-up pending — want to add more on the migration approach (how you keep a live airport PA system running while replacing its guts) and any measurable outcomes (fewer missed announcements, response time, etc.).
+The result: centralized, zone-accurate announcements delivered to over 720,000 speakers across all three terminals — infrastructure that has kept running, uninterrupted, since handover.

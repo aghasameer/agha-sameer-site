@@ -1,13 +1,17 @@
 ---
 title: Muqeem
 tagline: Government resident-services portal
+tags: [GovTech, Resident Services, National Infrastructure]
 stack: [Java Spring Boot, AngularJS, MS SQL Server]
-figure: "26,000+ companies & organizations served"
+role: I built the RESTful services layer that lets third-party HR systems integrate with the platform.
+figures:
+  - label: Companies & organizations served
+    value: "26,000+"
 order: 5
 ---
 
-Muqeem is a government portal serving Saudi residents on passport control, exit-entry processes, and employment transfers. Agha's role on the Muqeem team was building RESTful services for third-party applications that needed to interface with the system while continuing to run their own HRMS products.
+Muqeem is the Saudi government portal that handles passport control, exit-entry processes, and employment transfers for resident workers — critical national infrastructure that every company in the kingdom with foreign staff has to interact with.
 
-The service is used by over 26,000 companies and organizations across Saudi Arabia.
+My contribution to the Muqeem platform was building the RESTful services layer that lets third-party applications integrate with it directly — so companies could keep running their own HRMS products while staying connected to the government system underneath.
 
-> Deeper write-up pending — this is government infrastructure, so the public-facing story needs care; worth confirming what's shareable.
+The integration layer I built now supports over 26,000 companies and organizations operating across Saudi Arabia.

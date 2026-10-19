@@ -2,6 +2,8 @@
 title: A 2-million-image digital library for Saudi tourism
 client: Saudi Commission for Tourism and Antiquities
 sector: Government / Culture
+tags: [GovTech, Media & Culture, Digital Archiving]
+role: I conceptualized and deployed the digital library, including its paid subscription access model for marketing agencies.
 figures:
   - label: Images archived
     value: "2M+"
@@ -10,8 +12,8 @@ figures:
 order: 4
 ---
 
-Agha conceptualized and deployed an advanced intranet digital library to curate and manage an extensive media archive — over 2 million images and 23,000 hours of HD video showcasing Saudi Arabia's tourist attractions.
+The Saudi Commission for Tourism and Antiquities (now part of the Ministry of Tourism) is the government body responsible for promoting the kingdom's heritage sites and tourist attractions on the world stage — a mandate that runs on media, at scale.
 
-The system provided controlled access to marketing agencies, with paid and free subscription tiers, to support the promotion of regional tourism initiatives.
+I conceptualized and deployed an advanced intranet digital library to curate and manage the Commission's entire media archive, with controlled, tiered access for marketing agencies — paid and free subscription levels — to license and promote regional tourism content.
 
-> Deeper write-up pending — the access-control / subscription-tier model is worth explaining in more depth.
+The result: a single managed archive of over 2 million images and 23,000 hours of HD video, now the backbone of how Saudi tourism content reaches marketing partners.

@@ -1,13 +1,19 @@
 ---
 title: Muaref
 tagline: Tablet-based IoT attendance & access control
+tags: [IoT, Access Control, Biometrics]
 stack: [Java Spring Boot, Flutter, Swift, TensorFlow, MS SQL Server]
-figure: "1,200+ devices sold, $426K in revenue"
+role: I own Muaref end to end — product direction, hardware/software integration, and delivery.
+figures:
+  - label: Devices sold
+    value: "1,200+"
+  - label: Revenue generated
+    value: "$426K"
 order: 3
 ---
 
-Muaref is a tablet-based attendance and access-control IoT device that integrates with Ektefa, or runs stand-alone for scheduling, timekeeping, and access control. It supports QR, PIN, face, and location-based attendance with geo-perimeter restrictions, and links to locking systems for one-time, time-boxed, or point-specific access.
+Access control is usually sold as software bolted onto someone else's hardware. Muaref is both — a tablet device I designed to run attendance and access control as one integrated product.
 
-In a two-year span, over 1,200 devices have been sold, bringing in over USD 426,000 for the company.
+I built Muaref as a standalone IoT device that also plugs directly into Ektefa: QR, PIN, face, and location-based attendance with geo-perimeter restrictions, wired into locking systems for one-time, time-boxed, or point-specific access control.
 
-> Deeper write-up pending — the facial-recognition and geo-perimeter engineering is worth a proper technical breakdown.
+In a two-year span, Muaref has sold over 1,200 units, bringing in more than $426,000 in revenue — hardware-grade proof that the product works where it's installed, not just in a demo.
