@@ -185,6 +185,10 @@ const stack = [
 <style>
   .hero {
     padding-block: 64px 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 44px;
+    align-items: center;
   }
   .hero-copy .kicker {
     margin-bottom: 18px;
@@ -228,11 +232,10 @@ const stack = [
 
   .hero-photo {
     position: relative;
-    margin-top: 36px;
   }
   .photo-frame {
     position: relative;
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 1 / 1;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -242,7 +245,7 @@ const stack = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center center;
     filter: grayscale(0.55) contrast(1.08) brightness(0.92) sepia(0.12);
   }
   .photo-placeholder {
@@ -268,14 +271,8 @@ const stack = [
     display: flex;
   }
   .quote-chip {
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
-    right: 20px;
-    max-width: 420px;
-    margin: 0;
-    background: rgba(23, 29, 39, 0.88);
-    backdrop-filter: blur(6px);
+    margin: 16px 0 0;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 16px 18px;
@@ -283,7 +280,6 @@ const stack = [
     font-size: 14.5px;
     font-weight: 500;
     line-height: 1.5;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   }
   .quote-chip .mark {
     color: var(--accent);
@@ -455,18 +451,12 @@ const stack = [
     font-size: 13px;
   }
 
-  @media (max-width: 560px) {
-    .photo-frame {
-      aspect-ratio: 4 / 3;
+  @media (max-width: 760px) {
+    .hero {
+      grid-template-columns: 1fr;
     }
-    .quote-chip {
-      position: static;
-      margin-top: 14px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      box-shadow: none;
-      max-width: none;
+    .hero-photo {
+      max-width: 360px;
     }
   }
 </style>
