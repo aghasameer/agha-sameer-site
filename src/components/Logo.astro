@@ -11,9 +11,23 @@ const Tag = href ? 'a' : 'div';
 ---
 
 <Tag href={href ?? undefined} class="logo" aria-label="Agha Sameer — home">
-  <span class:list={['mark', { animated }]} style={`width:${size}px;height:${size}px`}>
-    <span class="letter">A</span>
-  </span>
+  <svg
+    class:list={['node-mark', { animated }]}
+    width={size}
+    height={size}
+    viewBox="0 0 64 64"
+    aria-hidden="true"
+  >
+    <line class="l1" x1="32" y1="10" x2="12" y2="52"></line>
+    <line class="l2" x1="32" y1="10" x2="52" y2="52"></line>
+    <path class="s-trace" d="M21,34 C27,41 37,27 43,34" pathLength="1"></path>
+    <circle class="core pop" cx="32" cy="10" r="4"></circle>
+    <circle class="pop" cx="12" cy="52" r="4"></circle>
+    <circle class="pop" cx="52" cy="52" r="4"></circle>
+    <circle class="pop" cx="21" cy="34" r="3.5"></circle>
+    <circle class="pop" cx="43" cy="34" r="3.5"></circle>
+    <circle class="pop s-mid" cx="32" cy="34" r="2.4"></circle>
+  </svg>
   {withText && <span class="logo-word">Agha Sameer</span>}
 </Tag>
 
@@ -26,37 +40,67 @@ const Tag = href ? 'a' : 'div';
     color: var(--text);
   }
 
-  .mark {
-    position: relative;
-    flex-shrink: 0;
-    border-radius: 28%;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 6px 14px -8px rgba(232, 163, 61, 0.55);
+  .node-mark circle {
+    fill: var(--surface-2);
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+  .node-mark circle.core {
+    fill: var(--accent);
+    stroke: none;
+  }
+  .node-mark circle.s-mid {
+    fill: var(--accent);
+    stroke: none;
+  }
+  .node-mark line,
+  .node-mark path {
+    stroke: var(--accent-dim);
+    stroke-width: 1.6;
+    fill: none;
+  }
+  .node-mark path.s-trace {
+    stroke: var(--accent);
+    stroke-width: 2;
   }
 
-  .letter {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--accent-ink);
-    font-size: 62%;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    transform: translateY(-2%);
+  .node-mark.animated line,
+  .node-mark.animated path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    pathLength: 1;
+    animation: draw-line 1s ease-out forwards;
   }
-
-  .mark.animated {
-    animation: mark-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  .node-mark.animated path.s-trace {
+    animation-delay: 0.35s;
+    animation-duration: 0.8s;
   }
-  @keyframes mark-in {
-    from { transform: scale(0.6); opacity: 0; }
+  .node-mark.animated circle.pop {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: pop-in 0.4s ease-out backwards;
+    animation-delay: 0.5s;
+  }
+  .node-mark.animated circle.core.pop {
+    animation-delay: 0.9s;
+    animation-duration: 0.5s;
+  }
+  .node-mark.animated circle.s-mid.pop {
+    animation-delay: 1s;
+  }
+  @keyframes draw-line {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes pop-in {
+    from { transform: scale(0); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .mark.animated {
+    .node-mark.animated line,
+    .node-mark.animated path,
+    .node-mark.animated circle {
       animation: none;
+      stroke-dashoffset: 0;
     }
   }
 
