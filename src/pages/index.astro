@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SkillChip from '../components/SkillChip.astro';
 import { getCollection } from 'astro:content';
+import { Briefcase, Send, UserRound, Layers, Landmark, BookOpen } from '@lucide/astro';
 
 const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
   (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
@@ -13,20 +13,6 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const stack = [
-  { icon: 'fa-brands fa-microsoft', label: '.NET / C#' },
-  { icon: 'fa-brands fa-java', label: 'Spring Boot' },
-  { icon: 'fa-brands fa-php', label: 'PHP' },
-  { icon: 'fa-brands fa-react', label: 'React' },
-  { icon: 'fa-brands fa-node-js', label: 'Node.js' },
-  { icon: 'fa-brands fa-android', label: 'Flutter' },
-  { icon: 'fa-solid fa-database', label: 'SQL Server / MongoDB' },
-  { icon: 'fa-brands fa-aws', label: 'AWS' },
-  { icon: 'fa-brands fa-docker', label: 'Docker / Kubernetes' },
-  { icon: 'fa-brands fa-linux', label: 'Linux Admin' },
-  { icon: 'fa-solid fa-shield-halved', label: 'Cyber Security' },
-  { icon: 'fa-solid fa-diagram-project', label: 'IoT Architecture' },
-];
 ---
 
 <BaseLayout
@@ -44,8 +30,8 @@ const stack = [
         systems, airport operations, and hospital infrastructure.
       </p>
       <div class="cta-row">
-        <a class="cta" href="/work/"><i class="fa-solid fa-briefcase"></i> See the work</a>
-        <a class="cta ghost" href="/contact/"><i class="fa-solid fa-paper-plane"></i> Get in touch</a>
+        <a class="cta" href="/work/"><Briefcase size={14} strokeWidth={2} /> See the work</a>
+        <a class="cta ghost" href="/contact/"><Send size={14} strokeWidth={2} /> Get in touch</a>
       </div>
     </div>
     <div class="hero-photo">
@@ -57,7 +43,7 @@ const stack = [
           onerror="this.closest('.photo-frame').classList.add('no-photo'); this.remove();"
         />
         <div class="photo-placeholder">
-          <i class="fa-solid fa-user-tie"></i>
+          <UserRound size={36} strokeWidth={1.5} />
           <span class="mono">Photo pending</span>
         </div>
       </div>
@@ -98,7 +84,7 @@ const stack = [
 
   <section class="proof container-wide">
     <div class="proof-head">
-      <h2><i class="fa-solid fa-layer-group"></i> What I've actually built</h2>
+      <h2><Layers size={16} strokeWidth={2} /> What I've actually built</h2>
       <a class="see-all" href="/work/">All the work →</a>
     </div>
     <div class="logo-strip">
@@ -112,7 +98,7 @@ const stack = [
 
   <section class="case-teaser container-wide">
     <div class="proof-head">
-      <h2><i class="fa-solid fa-landmark"></i> Selected case studies</h2>
+      <h2><Landmark size={16} strokeWidth={2} /> Selected case studies</h2>
       <a class="see-all" href="/work/">All case studies →</a>
     </div>
     <div class="case-grid">
@@ -128,20 +114,9 @@ const stack = [
     </div>
   </section>
 
-  <section class="stack container-wide">
-    <div class="proof-head">
-      <h2><i class="fa-solid fa-microchip"></i> Core stack</h2>
-    </div>
-    <div class="stack-chips">
-      {stack.map((s) => (
-        <SkillChip icon={s.icon} label={s.label} />
-      ))}
-    </div>
-  </section>
-
   <section class="parables-teaser container-wide">
     <div class="proof-head">
-      <h2><i class="fa-solid fa-book-open"></i> From Tech Parables</h2>
+      <h2><BookOpen size={16} strokeWidth={2} /> From Tech Parables</h2>
       <a class="see-all" href="/tech-parables/">Visit the blog →</a>
     </div>
     <div class="case-grid">
@@ -265,8 +240,7 @@ const stack = [
     color: var(--text-faint);
     background: radial-gradient(circle at 50% 35%, var(--surface-2), var(--surface));
   }
-  .photo-placeholder i {
-    font-size: 40px;
+  .photo-placeholder :global(svg) {
     color: var(--border);
   }
   .photo-placeholder span {
@@ -304,7 +278,6 @@ const stack = [
   section.impact,
   section.proof,
   section.case-teaser,
-  section.stack,
   section.parables-teaser {
     padding-block: 48px;
     border-top: 1px solid var(--border-soft);
@@ -362,9 +335,8 @@ const stack = [
     align-items: center;
     gap: 10px;
   }
-  .proof-head h2 i {
+  .proof-head h2 :global(svg) {
     color: var(--accent);
-    font-size: 16px;
   }
   .see-all {
     font-family: var(--font-mono);
@@ -444,12 +416,6 @@ const stack = [
     font-size: 11.5px;
     color: var(--accent);
     margin-top: 4px;
-  }
-
-  .stack-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
   }
 
   .parables-card {

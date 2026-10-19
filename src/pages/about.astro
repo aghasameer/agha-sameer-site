@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Route, Scale, Shield, UsersRound, Headphones, TrendingUp, ShieldCheck, GraduationCap, Award } from '@lucide/astro';
 
 const certs = [
   { src: '/logos/certs/csm.png', alt: 'Certified Scrum Master', label: 'CSM · Scrum Alliance' },
@@ -10,24 +11,42 @@ const certs = [
 
 const value = [
   {
-    icon: 'fa-solid fa-route',
+    icon: Route,
     title: 'I turn ambiguous mandates into results the board can point to',
     body: 'Give me a vague business problem and a deadline, and I will return a plan, a budget, and — on schedule — something real running at scale. That gap between "what the board wants" and "what actually gets delivered" is where I operate.',
   },
   {
-    icon: 'fa-solid fa-scale-balanced',
+    icon: Scale,
     title: 'I speak both languages: boardroom and backlog',
     body: 'I write the proposals that win projects and the architecture that delivers them. Most CTOs are strong at one; the ones that move organizations forward are fluent in both.',
   },
   {
-    icon: 'fa-solid fa-shield-halved',
+    icon: Shield,
     title: 'I build for scrutiny, not just uptime',
     body: 'Government and enterprise software gets audited, procured, and inspected. I design with compliance, security, and procurement realities baked in from day one — not bolted on before a deadline.',
   },
   {
-    icon: 'fa-solid fa-users-gear',
+    icon: UsersRound,
     title: 'I scale teams without slowing delivery',
     body: 'Agile frameworks are a means, not a religion. I run teams that ship 8–10 product increments a month because the process serves the delivery, not the other way round.',
+  },
+];
+
+const timeline = [
+  {
+    icon: Headphones,
+    role: '2007 – 2008 · Smartlink BPO, Flynas',
+    body: 'Ran daily operations for an 80-agent customer-support team, cut the dropped-call rate by 56% through weekly call-volume analysis, and led a digital-transformation initiative that lifted CSAT by 29% and cut average handle time by over 40%. First lesson in technology as a lever, not a decoration.',
+  },
+  {
+    icon: TrendingUp,
+    role: '2008 – 2012 · Orientec Group → Viable Dimensions',
+    body: 'Moved into project management proper — secured six- and seven-figure projects (including a USD 6.2M portfolio at an 87% closure rate), then ran the Saudi sales office for a US-based BPO, building the discipline of planning, budgeting, and delivering against deadlines someone else set.',
+  },
+  {
+    icon: ShieldCheck,
+    role: '2012 – present · CTO, Zadip Group',
+    body: 'Leading technology strategy and delivery for the group — six flagship products now generating $5.33M a year and serving over 700,000 users across the region, plus $3.46M won directly through proposals I personally authored and pitched. The business case and the build are the same discipline to me.',
   },
 ];
 
@@ -61,7 +80,7 @@ const skills = [
     <div class="value-grid">
       {value.map((v) => (
         <div class="value-card">
-          <i class={v.icon}></i>
+          <v.icon size={20} strokeWidth={1.75} />
           <h3>{v.title}</h3>
           <p>{v.body}</p>
         </div>
@@ -71,35 +90,14 @@ const skills = [
 
   <section class="timeline container">
     <h2>Background</h2>
-    <div class="t-item">
-      <p class="t-role mono"><i class="fa-solid fa-headset"></i> 2007 – 2008 · Smartlink BPO, Flynas</p>
-      <p>
-        Ran daily operations for an 80-agent customer-support team, cut the
-        dropped-call rate by 56% through weekly call-volume analysis, and led
-        a digital-transformation initiative that lifted CSAT by 29% and cut
-        average handle time by over 40%. First lesson in technology as a
-        lever, not a decoration.
-      </p>
-    </div>
-    <div class="t-item">
-      <p class="t-role mono"><i class="fa-solid fa-chart-line"></i> 2008 – 2012 · Orientec Group → Viable Dimensions</p>
-      <p>
-        Moved into project management proper — secured six- and seven-figure
-        projects (including a USD 6.2M portfolio at an 87% closure rate),
-        then ran the Saudi sales office for a US-based BPO, building the
-        discipline of planning, budgeting, and delivering against deadlines
-        someone else set.
-      </p>
-    </div>
-    <div class="t-item">
-      <p class="t-role mono"><i class="fa-solid fa-building-shield"></i> 2012 – present · CTO, Zadip Group</p>
-      <p>
-        Leading technology strategy and delivery for the group — six
-        flagship products now generating $5.33M a year and serving over
-        700,000 users across the region, plus $3.46M won directly through
-        proposals I personally authored and pitched. The business case and
-        the build are the same discipline to me.
-      </p>
+    <div class="timeline-track">
+      {timeline.map((t) => (
+        <div class="t-item">
+          <span class="t-dot"></span>
+          <p class="t-role mono"><t.icon size={14} strokeWidth={2} /> {t.role}</p>
+          <p>{t.body}</p>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -107,14 +105,14 @@ const skills = [
     <h2>Education</h2>
     <div class="edu-grid">
       <div class="edu-card">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <GraduationCap size={18} strokeWidth={1.75} />
         <div>
           <p class="edu-title">MBA — Strategy &amp; Optimization of Business Applications in Digital Marketplaces</p>
           <p class="edu-sub mono">Cardiff Metropolitan University · expected 2026</p>
         </div>
       </div>
       <div class="edu-card">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <GraduationCap size={18} strokeWidth={1.75} />
         <div>
           <p class="edu-title">BSc Computing — First-Class Honours</p>
           <p class="edu-sub mono">University of Central Lancashire · 2016 – 2020</p>
@@ -136,7 +134,7 @@ const skills = [
       ))}
     </div>
     <p class="also mono">
-      <i class="fa-solid fa-certificate"></i> Also: Certified NSOS Professional (DIGINFO — advanced
+      <Award size={13} strokeWidth={2} /> Also: Certified NSOS Professional (DIGINFO — advanced
       Linux administration, virtualization, cloud architecture &amp; VAPT), TOGAF® pursuing.
     </p>
   </section>
@@ -187,9 +185,8 @@ const skills = [
     background: var(--surface);
     padding: 24px;
   }
-  .value-card i {
+  .value-card :global(svg) {
     color: var(--accent);
-    font-size: 20px;
   }
   .value-card h3 {
     margin-top: 14px;
@@ -211,12 +208,36 @@ const skills = [
     font-size: 20px;
     margin-bottom: 28px;
   }
+  .timeline-track {
+    position: relative;
+    padding-left: 26px;
+  }
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: var(--border);
+  }
   .t-item {
+    position: relative;
     padding-block: 18px;
     border-top: 1px solid var(--border-soft);
   }
   .t-item:first-of-type {
     border-top: none;
+  }
+  .t-dot {
+    position: absolute;
+    left: -26px;
+    top: 24px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 2px solid var(--accent);
   }
   .t-role {
     font-size: 12px;
@@ -254,10 +275,10 @@ const skills = [
     background: var(--surface);
     padding: 18px 20px;
   }
-  .edu-card i {
+  .edu-card :global(svg) {
     color: var(--accent);
-    font-size: 18px;
     margin-top: 2px;
+    flex-shrink: 0;
   }
   .edu-title {
     font-size: 14px;
@@ -316,10 +337,13 @@ const skills = [
     font-size: 12px;
     color: var(--text-faint);
     line-height: 1.7;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .also i {
+  .also :global(svg) {
     color: var(--accent);
-    margin-right: 4px;
+    flex-shrink: 0;
   }
 
   .skills {

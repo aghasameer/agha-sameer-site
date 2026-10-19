@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { UserRound } from '@lucide/astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('case-studies', ({ data }) => !data.draft);
@@ -29,7 +30,8 @@ const { title, client, sector, year, figures, tags, role } = entry.data;
 
     {role && (
       <p class="role">
-        <i class="fa-solid fa-user-tie"></i> <strong>My role:</strong> {role}
+        <UserRound size={14} strokeWidth={2} />
+        <span><strong>My role:</strong> {role}</span>
       </p>
     )}
 
@@ -93,9 +95,10 @@ const { title, client, sector, year, figures, tags, role } = entry.data;
     gap: 9px;
     max-width: 60ch;
   }
-  .role i {
+  .role :global(svg) {
     color: var(--accent);
     margin-top: 3px;
+    flex-shrink: 0;
   }
   .role strong {
     color: var(--text);

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Handshake, BadgeCheck, Network, Mic, HelpCircle } from '@lucide/astro';
 
 // TODO: replace with the real Turnstile site key once the widget is created
 // in the Cloudflare dashboard (Turnstile → Add site). The site key is public
@@ -8,11 +9,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // Cloudflare's always-pass test key
 
 const reasons = [
-  { icon: 'fa-solid fa-handshake', title: 'Advisory or board input', body: 'Technical due diligence, architecture review, or a second opinion on a product bet.' },
-  { icon: 'fa-solid fa-building-circle-check', title: 'A CTO-level hire or engagement', body: "Full-time, fractional, or project-based — if it's a software leadership role, let's talk." },
-  { icon: 'fa-solid fa-diagram-project', title: 'A government or enterprise build', body: 'Large-scale systems, e-government platforms, IoT retrofits inside live infrastructure.' },
-  { icon: 'fa-solid fa-microphone', title: 'Speaking or a Tech Parables guest idea', body: 'Panels, talks, or a story worth telling on the blog.' },
-  { icon: 'fa-solid fa-circle-question', title: 'Something else entirely', body: "Not every good reason to reach out fits a category. Say what's on your mind." },
+  { icon: Handshake, title: 'Advisory or board input', body: 'Technical due diligence, architecture review, or a second opinion on a product bet.' },
+  { icon: BadgeCheck, title: 'A CTO-level hire or engagement', body: "Full-time, fractional, or project-based — if it's a software leadership role, let's talk." },
+  { icon: Network, title: 'A government or enterprise build', body: 'Large-scale systems, e-government platforms, IoT retrofits inside live infrastructure.' },
+  { icon: Mic, title: 'Speaking or a Tech Parables guest idea', body: 'Panels, talks, or a story worth telling on the blog.' },
+  { icon: HelpCircle, title: 'Something else entirely', body: "Not every good reason to reach out fits a category. Say what's on your mind." },
 ];
 ---
 
@@ -31,7 +32,7 @@ const reasons = [
     <div class="reasons">
       {reasons.map((r) => (
         <div class="reason">
-          <i class={r.icon}></i>
+          <r.icon size={16} strokeWidth={1.75} />
           <div>
             <p class="reason-title">{r.title}</p>
             <p class="reason-body">{r.body}</p>
@@ -144,12 +145,9 @@ const reasons = [
     background: var(--surface);
     padding: 16px 18px;
   }
-  .reason i {
+  .reason :global(svg) {
     color: var(--accent);
-    font-size: 16px;
     margin-top: 3px;
-    width: 18px;
-    text-align: center;
     flex-shrink: 0;
   }
   .reason-title {

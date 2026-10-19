@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TechParablesMark from '../../components/TechParablesMark.astro';
+import { PenLine, Clock } from '@lucide/astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+const upcoming = (await getCollection('blog', ({ data }) => data.draft))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <BaseLayout
@@ -14,7 +17,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 >
   <section class="intro container">
     <div class="brand">
-      <div class="mark"><TechParablesMark size={44} /></div>
+      <TechParablesMark size={64} />
       <div>
         <p class="kicker">The blog</p>
         <h1>Tech Parables</h1>
@@ -25,7 +28,29 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
   {posts.length === 0 ? (
     <section class="empty container">
-      <p class="mono">No posts published yet — first ones (the 3-2-1 Prioritization Technique, the Holy Data Octet) are being adapted from LinkedIn and will land here shortly.</p>
+      <div class="empty-card">
+        <svg class="deco" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="0" y1="110" x2="120" y2="40" />
+          <line x1="120" y1="40" x2="260" y2="80" />
+          <line x1="260" y1="80" x2="400" y2="20" />
+          <circle cx="120" cy="40" r="3.5" />
+          <circle cx="260" cy="80" r="3.5" />
+        </svg>
+        <p class="eyebrow mono"><Clock size={13} strokeWidth={2} /> In progress</p>
+        <h2>First parables, on their way</h2>
+        <div class="upcoming-list">
+          {upcoming.map((p) => (
+            <div class="upcoming-item">
+              <PenLine size={16} strokeWidth={1.75} />
+              <div>
+                <p class="u-title">{p.data.title}</p>
+                <p class="u-badge mono">Coming soon</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="note mono">Being adapted from the original LinkedIn posts — real writing, not filler, so it's taking the time it needs.</p>
+      </div>
     </section>
   ) : (
     <section class="list container">
@@ -47,22 +72,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   .brand {
     display: flex;
     align-items: center;
-    gap: 16px;
-  }
-  .mark {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-label);
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 13px;
-    flex-shrink: 0;
+    gap: 18px;
   }
   .intro h1 {
     font-size: clamp(26px, 4vw, 34px);
@@ -76,9 +86,90 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
   .empty {
     padding-block: 24px 80px;
-    color: var(--text-faint);
-    font-size: 13px;
     border-top: 1px solid var(--border-soft);
+  }
+  .empty-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    padding: 36px 32px 32px;
+  }
+  .deco {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .deco line {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+  .deco circle {
+    fill: var(--accent);
+    opacity: 0.7;
+  }
+  .eyebrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .empty-card h2 {
+    position: relative;
+    margin-top: 10px;
+    font-size: 21px;
+    max-width: 20ch;
+  }
+  .upcoming-list {
+    position: relative;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 420px;
+  }
+  .upcoming-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    background: var(--surface-2);
+    padding: 12px 14px;
+  }
+  .upcoming-item :global(svg) {
+    color: var(--accent);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .u-title {
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .u-badge {
+    margin-top: 3px;
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .note {
+    position: relative;
+    margin-top: 22px;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    max-width: 48ch;
+    line-height: 1.6;
   }
 
   .list {
