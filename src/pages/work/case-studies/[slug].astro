@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, client, sector, year, figures } = entry.data;
+const { title, client, sector, year, figures, tags, role } = entry.data;
 ---
 
 <BaseLayout title={title} description={`${client} — ${title}`}>
@@ -20,6 +20,18 @@ const { title, client, sector, year, figures } = entry.data;
     <p class="kicker"><a href="/work/">Work</a> / Case study</p>
     <p class="client mono">{client} · {sector}{year ? ` · ${year}` : ''}</p>
     <h1>{title}</h1>
+
+    {tags && tags.length > 0 && (
+      <div class="tag-row">
+        {tags.map((t) => <span class="pill mono">{t}</span>)}
+      </div>
+    )}
+
+    {role && (
+      <p class="role">
+        <i class="fa-solid fa-user-tie"></i> <strong>My role:</strong> {role}
+      </p>
+    )}
 
     {figures && figures.length > 0 && (
       <div class="figures">
@@ -59,8 +71,38 @@ const { title, client, sector, year, figures } = entry.data;
     max-width: 24ch;
     line-height: 1.2;
   }
+  .tag-row {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .pill {
+    font-size: 11px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 11px;
+  }
+  .role {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    max-width: 60ch;
+  }
+  .role i {
+    color: var(--accent);
+    margin-top: 3px;
+  }
+  .role strong {
+    color: var(--text);
+    font-weight: 500;
+  }
   .figures {
-    margin-top: 32px;
+    margin-top: 28px;
     display: flex;
     gap: 32px;
     flex-wrap: wrap;

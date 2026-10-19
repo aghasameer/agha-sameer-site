@@ -7,56 +7,119 @@ const certs = [
   { src: '/logos/certs/pmp.png', alt: 'Project Management Professional', label: 'PMP · PMI' },
   { src: '/logos/certs/togaf.png', alt: 'TOGAF 9 Certified', label: 'TOGAF® 9 · in progress', dim: true },
 ];
+
+const value = [
+  {
+    icon: 'fa-solid fa-route',
+    title: 'I turn ambiguous mandates into shipped software',
+    body: 'Give me a vague business problem and a deadline, and I will return an architecture, a plan, and — eventually — a production system. That gap between "what the board wants" and "what gets deployed" is where I operate.',
+  },
+  {
+    icon: 'fa-solid fa-scale-balanced',
+    title: 'I speak both languages: boardroom and backlog',
+    body: 'I write the proposals that win projects and the architecture that delivers them. Most CTOs are strong at one; the ones that move organizations forward are fluent in both.',
+  },
+  {
+    icon: 'fa-solid fa-shield-halved',
+    title: 'I build for scrutiny, not just uptime',
+    body: 'Government and enterprise software gets audited, procured, and inspected. I design with compliance, security, and procurement realities baked in from day one — not bolted on before a deadline.',
+  },
+  {
+    icon: 'fa-solid fa-users-gear',
+    title: 'I scale teams without slowing delivery',
+    body: 'Agile frameworks are a means, not a religion. I run teams that ship 8–10 product increments a month because the process serves the delivery, not the other way round.',
+  },
+];
+
+const skills = [
+  'C#', 'ASP.NET', 'Java / Spring Boot', 'PHP (LAMP)', 'JavaScript', 'TypeScript', 'React', 'Node.js',
+  'Flutter / Dart', 'Swift', 'TensorFlow', 'HTML5 / CSS3', 'Tailwind', 'MySQL', 'MS SQL Server', 'MongoDB',
+  'AWS', 'Azure', 'IBM Cloud', 'Docker', 'Kubernetes', 'Linux Administration', 'Jenkins / CI-CD', 'Git',
+  'RESTful API Design', 'IoT Architecture', 'Cyber Security', 'DevOps', 'Database Design',
+  'Scrum / Kanban', 'Agile Delivery', 'Project Management', 'Power BI', 'Data Engineering',
+];
 ---
 
 <BaseLayout
   title="About"
-  description="CTO at Zadip Group — seventeen years turning ambiguous mandates into production systems, from call-center operations to six SaaS products."
+  description="CTO at Zadip Group — seventeen years turning ambiguous mandates into production systems. What I bring to a company, my background, skills, and certifications."
 >
   <section class="intro container">
-    <p class="kicker">About</p>
-    <h1>I didn't start in code. I started where code has to answer for itself.</h1>
+    <p class="kicker">Governance · Delivery · Scale</p>
+    <h1>What I bring to a company</h1>
     <p class="lede">
-      Before architecture diagrams, there was a call center — the flight
-      operations desk at Smartlink BPO, coordinating flynas customer service
-      during the stretch where a dropped call meant a missed flight. That's
-      where I learned the thing that still drives how I build: a system's
-      quality isn't what's in the spec, it's what happens under pressure, in
-      front of someone who didn't choose to be there.
+      I'm a working CTO, not a consultant who hands over a slide deck and
+      leaves. Over seventeen years I've learned that a system's quality isn't
+      what's in the architecture diagram — it's what happens when it's under
+      pressure, in front of someone who didn't choose to be there. That's the
+      standard I build to, and the standard I hold teams to.
     </p>
   </section>
 
+  <section class="value container">
+    <h2>Where I add value</h2>
+    <div class="value-grid">
+      {value.map((v) => (
+        <div class="value-card">
+          <i class={v.icon}></i>
+          <h3>{v.title}</h3>
+          <p>{v.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <section class="timeline container">
-    <h2>The long version</h2>
+    <h2>Background</h2>
     <div class="t-item">
-      <p class="t-role mono">2007 – 2008 · Smartlink BPO, Flynas</p>
+      <p class="t-role mono"><i class="fa-solid fa-headset"></i> 2007 – 2008 · Smartlink BPO, Flynas</p>
       <p>
         Ran daily operations for an 80-agent customer-support team, cut the
-        dropped-call rate by 56% through weekly call-volume analysis, and
-        pushed through a digital-transformation initiative that lifted CSAT
-        by 29% and cut average handle time by over 40%. First lesson in
-        technology as a lever, not a decoration.
+        dropped-call rate by 56% through weekly call-volume analysis, and led
+        a digital-transformation initiative that lifted CSAT by 29% and cut
+        average handle time by over 40%. First lesson in technology as a
+        lever, not a decoration.
       </p>
     </div>
     <div class="t-item">
-      <p class="t-role mono">2008 – 2012 · Orientec Group → Viable Dimensions</p>
+      <p class="t-role mono"><i class="fa-solid fa-chart-line"></i> 2008 – 2012 · Orientec Group → Viable Dimensions</p>
       <p>
-        Moved into project management proper — secured six-figure and
-        seven-figure projects (including a USD 6.2M portfolio at an 87%
-        closure rate), then ran the Saudi sales office for a US-based BPO,
-        building the discipline of planning, budgeting, and delivering
-        against a deadline someone else set.
+        Moved into project management proper — secured six- and seven-figure
+        projects (including a USD 6.2M portfolio at an 87% closure rate),
+        then ran the Saudi sales office for a US-based BPO, building the
+        discipline of planning, budgeting, and delivering against deadlines
+        someone else set.
       </p>
     </div>
     <div class="t-item">
-      <p class="t-role mono">2012 – present · CTO, Zadip Group</p>
+      <p class="t-role mono"><i class="fa-solid fa-building-shield"></i> 2012 – present · CTO, Zadip Group</p>
       <p>
         ICT and software projects lead, building SaaS products with a focus
         on e-government services. Six flagship products, over 700,000 users
-        combined, and a team that ships 8–10 product increments a month. I
-        also write the business proposals that win the work — the pitch and
-        the build are the same discipline to me.
+        combined, and a team shipping 8–10 product increments a month. I also
+        write the business proposals that win the work — the pitch and the
+        build are the same discipline to me.
       </p>
+    </div>
+  </section>
+
+  <section class="education container">
+    <h2>Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <div>
+          <p class="edu-title">MBA — Strategy &amp; Optimization of Business Applications in Digital Marketplaces</p>
+          <p class="edu-sub mono">Cardiff Metropolitan University · expected 2026</p>
+        </div>
+      </div>
+      <div class="edu-card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <div>
+          <p class="edu-title">BSc Computing — First-Class Honours</p>
+          <p class="edu-sub mono">University of Central Lancashire · 2016 – 2020</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -73,9 +136,18 @@ const certs = [
       ))}
     </div>
     <p class="also mono">
-      Also: Certified NSOS Professional (DIGINFO, advanced Linux admin, virtualization, cloud
-      architecture & VAPT) · MBA in progress, Cardiff Metropolitan University, expected 2026.
+      <i class="fa-solid fa-certificate"></i> Also: Certified NSOS Professional (DIGINFO — advanced
+      Linux administration, virtualization, cloud architecture &amp; VAPT), TOGAF® pursuing.
     </p>
+  </section>
+
+  <section class="skills container">
+    <h2>Skills &amp; technologies</h2>
+    <div class="skill-cloud">
+      {skills.map((s) => (
+        <span class="tag mono">{s}</span>
+      ))}
+    </div>
   </section>
 </BaseLayout>
 
@@ -84,9 +156,9 @@ const certs = [
     padding-block: 64px 48px;
   }
   .intro h1 {
-    font-size: clamp(26px, 4vw, 36px);
+    font-size: clamp(28px, 4.4vw, 40px);
     max-width: 20ch;
-    line-height: 1.22;
+    line-height: 1.18;
   }
   .intro .lede {
     margin-top: 20px;
@@ -94,6 +166,41 @@ const certs = [
     color: var(--text-muted);
     line-height: 1.75;
     font-size: 16px;
+  }
+
+  .value {
+    padding-block: 48px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .value h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .value-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 24px;
+  }
+  .value-card i {
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .value-card h3 {
+    margin-top: 14px;
+    font-size: 15.5px;
+    line-height: 1.4;
+  }
+  .value-card p {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 13.5px;
+    line-height: 1.65;
   }
 
   .timeline {
@@ -115,6 +222,9 @@ const certs = [
     font-size: 12px;
     color: var(--accent);
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .t-item p:not(.t-role) {
     color: var(--text-muted);
@@ -122,8 +232,45 @@ const certs = [
     max-width: 68ch;
   }
 
+  .education {
+    padding-block: 48px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .education h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .edu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .edu-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 18px 20px;
+  }
+  .edu-card i {
+    color: var(--accent);
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  .edu-title {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .edu-sub {
+    margin-top: 4px;
+    font-size: 11.5px;
+    color: var(--text-faint);
+  }
+
   .certs {
-    padding-block: 48px 72px;
+    padding-block: 48px;
     border-top: 1px solid var(--border-soft);
   }
   .certs h2 {
@@ -169,5 +316,30 @@ const certs = [
     font-size: 12px;
     color: var(--text-faint);
     line-height: 1.7;
+  }
+  .also i {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  .skills {
+    padding-block: 48px 80px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .skills h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .skill-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+  .tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 13px;
   }
 </style>

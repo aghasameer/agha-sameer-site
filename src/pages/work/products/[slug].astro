@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, tagline, stack, figure } = entry.data;
+const { title, tagline, stack, tags, role, figures, launched } = entry.data;
 ---
 
 <BaseLayout title={title} description={`${title} — ${tagline}`}>
@@ -21,14 +21,27 @@ const { title, tagline, stack, figure } = entry.data;
     <div class="logo-stage">
       <img src={`/logos/products/${entry.id}.png`} alt={title} />
     </div>
-    <p class="tagline">{tagline}</p>
+    <p class="tagline">{tagline}{launched ? ` · live since ${launched}` : ''}</p>
 
-    {figure && <p class="figure mono">{figure}</p>}
+    {tags && tags.length > 0 && (
+      <div class="tag-row">
+        {tags.map((t) => <span class="pill mono">{t}</span>)}
+      </div>
+    )}
 
-    {stack && stack.length > 0 && (
-      <div class="stack">
-        {stack.map((s) => (
-          <span class="chip mono">{s}</span>
+    {role && (
+      <p class="role">
+        <i class="fa-solid fa-user-tie"></i> <strong>My role:</strong> {role}
+      </p>
+    )}
+
+    {figures && figures.length > 0 && (
+      <div class="figures">
+        {figures.map((f) => (
+          <div class="fig">
+            <div class="num mono">{f.value}</div>
+            <div class="label mono">{f.label}</div>
+          </div>
         ))}
       </div>
     )}
@@ -36,6 +49,17 @@ const { title, tagline, stack, figure } = entry.data;
     <div class="prose">
       <Content />
     </div>
+
+    {stack && stack.length > 0 && (
+      <div class="stack-block">
+        <p class="stack-label mono"><i class="fa-solid fa-code"></i> Tech stack</p>
+        <div class="stack">
+          {stack.map((s) => (
+            <span class="chip mono">{s}</span>
+          ))}
+        </div>
+      </div>
+    )}
 
     <a class="back" href="/work/">← Back to all work</a>
   </article>
@@ -68,23 +92,53 @@ const { title, tagline, stack, figure } = entry.data;
     color: var(--text-muted);
     max-width: 48ch;
   }
-  .figure {
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--accent);
-  }
-  .stack {
-    margin-top: 20px;
+  .tag-row {
+    margin-top: 18px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
   }
-  .chip {
+  .pill {
     font-size: 11px;
-    color: var(--text-faint);
+    color: var(--text-muted);
     border: 1px solid var(--border);
     border-radius: 999px;
     padding: 4px 11px;
+  }
+  .role {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    max-width: 60ch;
+  }
+  .role i {
+    color: var(--accent);
+    margin-top: 3px;
+  }
+  .role strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .figures {
+    margin-top: 24px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .fig .num {
+    font-size: 24px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .fig .label {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
   }
   .prose {
     margin-top: 32px;
@@ -104,6 +158,34 @@ const { title, tagline, stack, figure } = entry.data;
     border-radius: 0 8px 8px 0;
     color: var(--text-faint);
     font-size: 14px;
+  }
+  .stack-block {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .stack-label {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .stack-label i {
+    color: var(--accent);
+    margin-right: 4px;
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .chip {
+    font-size: 10.5px;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 10px;
   }
   .back {
     display: inline-block;

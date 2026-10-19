@@ -6,6 +6,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // and safe to ship client-side — only the secret key (server-side, in
 // functions/api/contact.js) needs to stay private.
 const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // Cloudflare's always-pass test key
+
+const reasons = [
+  { icon: 'fa-solid fa-handshake', title: 'Advisory or board input', body: 'Technical due diligence, architecture review, or a second opinion on a product bet.' },
+  { icon: 'fa-solid fa-building-circle-check', title: 'A CTO-level hire or engagement', body: "Full-time, fractional, or project-based — if it's a software leadership role, let's talk." },
+  { icon: 'fa-solid fa-diagram-project', title: 'A government or enterprise build', body: 'Large-scale systems, e-government platforms, IoT retrofits inside live infrastructure.' },
+  { icon: 'fa-solid fa-microphone', title: 'Speaking or a Tech Parables guest idea', body: 'Panels, talks, or a story worth telling on the blog.' },
+  { icon: 'fa-solid fa-circle-question', title: 'Something else entirely', body: "Not every good reason to reach out fits a category. Say what's on your mind." },
+];
 ---
 
 <BaseLayout
@@ -19,6 +27,18 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // Cloudflare's always-pa
       This goes straight to my inbox, filtered through a bot-check — no
       mailing lists, no auto-responders pretending to be me.
     </p>
+
+    <div class="reasons">
+      {reasons.map((r) => (
+        <div class="reason">
+          <i class={r.icon}></i>
+          <div>
+            <p class="reason-title">{r.title}</p>
+            <p class="reason-body">{r.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
 
     <form id="contact-form" novalidate>
       <label>
@@ -106,6 +126,42 @@ const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // Cloudflare's always-pa
     max-width: 56ch;
     color: var(--text-muted);
     line-height: 1.7;
+  }
+
+  .reasons {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    max-width: 760px;
+  }
+  .reason {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .reason i {
+    color: var(--accent);
+    font-size: 16px;
+    margin-top: 3px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .reason-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .reason-body {
+    margin-top: 5px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
   }
 
   form {

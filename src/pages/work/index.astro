@@ -16,23 +16,28 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
 >
   <section class="intro container">
     <p class="kicker">Work</p>
-    <h1>Case studies & products</h1>
+    <h1>Case studies &amp; products</h1>
     <p class="lede">
       Two kinds of proof: products I built and still run at Zadip Group, and
       case studies from projects delivered for government and enterprise
-      clients. More detail is being added to each page over time.
+      clients.
     </p>
   </section>
 
   <section class="list container-wide">
     <div class="list-head">
-      <h2>Case studies</h2>
+      <h2><i class="fa-solid fa-landmark"></i> Case studies</h2>
     </div>
     <div class="grid">
       {caseStudies.map((cs) => (
         <a href={`/work/case-studies/${cs.id}/`} class="card">
           <p class="client mono">{cs.data.client}</p>
           <h3>{cs.data.title}</h3>
+          {cs.data.tags && cs.data.tags.length > 0 && (
+            <div class="tag-row">
+              {cs.data.tags.slice(0, 3).map((t: string) => <span class="pill mono">{t}</span>)}
+            </div>
+          )}
           {cs.data.figures && cs.data.figures.length > 0 && (
             <p class="figure mono">{cs.data.figures[0].value} — {cs.data.figures[0].label}</p>
           )}
@@ -43,7 +48,7 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
 
   <section class="list container-wide">
     <div class="list-head">
-      <h2>Products</h2>
+      <h2><i class="fa-solid fa-cubes"></i> Products</h2>
     </div>
     <div class="grid">
       {products.map((p) => (
@@ -52,7 +57,14 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
             <img src={`/logos/products/${p.id}.png`} alt={p.data.title} loading="lazy" />
           </div>
           <p class="desc">{p.data.tagline}</p>
-          {p.data.figure && <p class="figure mono">{p.data.figure}</p>}
+          {p.data.tags && p.data.tags.length > 0 && (
+            <div class="tag-row">
+              {p.data.tags.slice(0, 3).map((t: string) => <span class="pill mono">{t}</span>)}
+            </div>
+          )}
+          {p.data.figures && p.data.figures.length > 0 && (
+            <p class="figure mono">{p.data.figures[0].value} — {p.data.figures[0].label}</p>
+          )}
         </a>
       ))}
     </div>
@@ -80,6 +92,13 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
   .list-head h2 {
     font-size: 19px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .list-head h2 i {
+    color: var(--accent);
+    font-size: 16px;
   }
   .grid {
     display: grid;
@@ -113,21 +132,35 @@ const products = (await getCollection('products', ({ data }) => !data.draft)).so
     line-height: 1.35;
   }
   .logo-stage {
-    height: 32px;
+    width: 100%;
+    height: 44px;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   .logo-stage img {
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
     width: auto;
-    max-width: 140px;
+    height: auto;
     object-fit: contain;
-    object-position: left center;
   }
   .desc {
     font-size: 13.5px;
     color: var(--text-muted);
     line-height: 1.5;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pill {
+    font-size: 10.5px;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 9px;
   }
   .figure {
     font-size: 11.5px;

@@ -9,9 +9,11 @@ const year = new Date().getFullYear();
       <p>CTO, Zadip Group — Riyadh, Saudi Arabia</p>
     </div>
     <div class="links">
-      <a href="https://www.linkedin.com/in/aghasameer/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="/tech-parables/">Tech Parables</a>
-      <a href="/contact/">Contact</a>
+      <a href="https://www.linkedin.com/in/aghasameer/" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="/tech-parables/"><i class="fa-solid fa-book-open"></i> Tech Parables</a>
+      <a href="/contact/"><i class="fa-solid fa-paper-plane"></i> Contact</a>
     </div>
   </div>
   <div class="container-wide fine-print mono">© {year} Agha Sameer. All opinions my own, all bugs somebody else's.</div>
@@ -49,6 +51,13 @@ const year = new Date().getFullYear();
     text-decoration: none;
     color: var(--text-muted);
     transition: color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .links a i {
+    color: var(--accent);
+    font-size: 12px;
   }
 
   .links a:hover {

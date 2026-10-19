@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechParablesMark from '../../components/TechParablesMark.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
@@ -13,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 >
   <section class="intro container">
     <div class="brand">
-      <div class="mark">T·P</div>
+      <div class="mark"><TechParablesMark size={44} /></div>
       <div>
         <p class="kicker">The blog</p>
         <h1>Tech Parables</h1>

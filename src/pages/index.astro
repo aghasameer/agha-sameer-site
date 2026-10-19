@@ -1,48 +1,106 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillChip from '../components/SkillChip.astro';
 import { getCollection } from 'astro:content';
 
-const products = (await getCollection('products', ({ data }) => !data.draft))
+const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+const caseStudies = (await getCollection('case-studies', ({ data }) => !data.draft))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
-  .slice(0, 6);
+  .slice(0, 3);
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const stack = [
+  { icon: 'fa-brands fa-microsoft', label: '.NET / C#' },
+  { icon: 'fa-brands fa-java', label: 'Spring Boot' },
+  { icon: 'fa-brands fa-php', label: 'PHP' },
+  { icon: 'fa-brands fa-react', label: 'React' },
+  { icon: 'fa-brands fa-node-js', label: 'Node.js' },
+  { icon: 'fa-brands fa-android', label: 'Flutter' },
+  { icon: 'fa-solid fa-database', label: 'SQL Server / MongoDB' },
+  { icon: 'fa-brands fa-aws', label: 'AWS' },
+  { icon: 'fa-brands fa-docker', label: 'Docker / Kubernetes' },
+  { icon: 'fa-brands fa-linux', label: 'Linux Admin' },
+  { icon: 'fa-solid fa-shield-halved', label: 'Cyber Security' },
+  { icon: 'fa-solid fa-diagram-project', label: 'IoT Architecture' },
+];
 ---
 
 <BaseLayout
   title="Agha Sameer"
-  description="CTO at Zadip Group. Seventeen years building software that governments and enterprises actually run on."
+  description="CTO at Zadip Group. Seventeen years of software leadership across government and enterprise systems serving 700,000+ users."
 >
-  <section class="hero container">
-    <p class="kicker">CTO, Zadip Group — Riyadh</p>
-    <h1>
-      I've shipped software for ministries, airports, and a fifty-year-old PA
-      system that finally learned to behave.
-    </h1>
-    <p class="lede">
-      Seventeen years as a working CTO — not a consultant who drops a deck and
-      leaves. I build the systems that keep running long after everyone else
-      has gone home, across six products of my own and a long list of
-      government and enterprise deployments that, by design, nobody notices
-      until they stop working.
-    </p>
-    <div class="cta-row">
-      <a class="cta" href="/work/">See the work</a>
-      <a class="cta ghost" href="/tech-parables/">Read Tech Parables</a>
+  <section class="hero container-wide">
+    <div class="hero-copy">
+      <p class="kicker">CTO · Zadip Group — Riyadh, Saudi Arabia</p>
+      <h1>I build the systems governments and enterprises run their operations on.</h1>
+      <p class="lede">
+        I turn ambiguous mandates into production systems. Seventeen years as
+        a working CTO — six SaaS products of my own serving 700,000+ users,
+        and infrastructure for ministries, airports, and hospitals built to
+        keep running long after the handover.
+      </p>
+      <div class="cta-row">
+        <a class="cta" href="/work/"><i class="fa-solid fa-briefcase"></i> See the work</a>
+        <a class="cta ghost" href="/contact/"><i class="fa-solid fa-paper-plane"></i> Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame" id="photo-frame">
+        <img
+          src="/images/profile.jpg"
+          alt="Agha Sameer"
+          loading="eager"
+          onerror="this.closest('.photo-frame').classList.add('no-photo'); this.remove();"
+        />
+        <div class="photo-placeholder">
+          <i class="fa-solid fa-user-tie"></i>
+          <span class="mono">Photo pending</span>
+        </div>
+      </div>
+      <blockquote class="quote-chip">
+        <span class="mark">“</span>
+        The hardest calls were never technical — they were knowing what
+        right looked like before anyone could tell me.
+        <p class="attrib mono">— draft, awaiting your words</p>
+      </blockquote>
     </div>
   </section>
 
-  <section class="quote-block container">
-    <!-- DRAFT — placeholder pull-quote. Swap for your own words, or edit this one. -->
-    <blockquote>
-      <span class="mark">“</span>
-      Most software fails quietly long before it fails loudly. My job is
-      making sure nobody finds out which kind we shipped.
-    </blockquote>
-    <p class="attrib mono">— draft quote, awaiting your edit</p>
+  <section class="impact container-wide">
+    <div class="impact-chart">
+      <div class="section-eyebrow">
+        <p class="kicker">Revenue brought in</p>
+        <p class="note mono">2012 – 2026 · illustrative, pending real figures</p>
+      </div>
+      <svg class="revenue-chart" viewBox="0 0 880 290" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Revenue growth from 2012 to 2026, with a slowdown in 2020 to 2021, reaching $5.33M by 2026">
+        <defs>
+          <linearGradient id="revFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.32"></stop>
+            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <rect class="dip-band" x="468.5" y="30" width="114.4" height="220"></rect>
+        <text class="dip-label" x="525.7" y="266">2020–21 · slowdown</text>
+        <line x1="40" y1="250" x2="840" y2="250" stroke="var(--border-soft)" stroke-width="1"></line>
+        <path class="area" d="M40.0,239.0 C49.5,237.2 78.1,231.7 97.1,228.0 C116.2,224.3 135.2,221.3 154.3,217.0 C173.3,212.7 192.4,207.2 211.4,202.3 C230.5,197.4 249.5,192.6 268.6,187.7 C287.6,182.8 306.7,178.5 325.7,173.0 C344.8,167.5 363.8,160.8 382.9,154.7 C401.9,148.6 421.0,135.1 440.0,136.3 C459.0,137.6 478.1,156.5 497.1,162.0 C516.2,167.5 535.2,172.4 554.3,169.3 C573.3,166.3 592.4,152.2 611.4,143.7 C630.5,135.1 649.5,126.6 668.6,118.0 C687.6,109.4 706.7,100.3 725.7,92.3 C744.8,84.4 763.8,76.6 782.9,70.3 C801.9,64.0 830.5,57.2 840.0,54.6 L840.0,250 L40.0,250 Z"></path>
+        <path class="line" d="M40.0,239.0 C49.5,237.2 78.1,231.7 97.1,228.0 C116.2,224.3 135.2,221.3 154.3,217.0 C173.3,212.7 192.4,207.2 211.4,202.3 C230.5,197.4 249.5,192.6 268.6,187.7 C287.6,182.8 306.7,178.5 325.7,173.0 C344.8,167.5 363.8,160.8 382.9,154.7 C401.9,148.6 421.0,135.1 440.0,136.3 C459.0,137.6 478.1,156.5 497.1,162.0 C516.2,167.5 535.2,172.4 554.3,169.3 C573.3,166.3 592.4,152.2 611.4,143.7 C630.5,135.1 649.5,126.6 668.6,118.0 C687.6,109.4 706.7,100.3 725.7,92.3 C744.8,84.4 763.8,76.6 782.9,70.3 C801.9,64.0 830.5,57.2 840.0,54.6"></path>
+        <circle class="end-dot pulse" cx="840" cy="54.6" r="5"></circle>
+        <circle cx="40" cy="239" r="3.5" fill="var(--text-faint)"></circle>
+        <text class="start-label" x="40" y="270" text-anchor="start">2012</text>
+        <text class="axis-label" x="840" y="270" text-anchor="end">2026</text>
+        <text class="end-label" x="700" y="48" text-anchor="end">$5.33M</text>
+        <text class="end-sub" x="700" y="64" text-anchor="end">annual revenue, today</text>
+      </svg>
+    </div>
   </section>
 
   <section class="proof container-wide">
     <div class="proof-head">
-      <h2>What I've actually built</h2>
+      <h2><i class="fa-solid fa-layer-group"></i> What I've actually built</h2>
       <a class="see-all" href="/work/">All the work →</a>
     </div>
     <div class="logo-strip">
@@ -54,51 +112,97 @@ const products = (await getCollection('products', ({ data }) => !data.draft))
     </div>
   </section>
 
-  <section class="bio-teaser container">
-    <h2>Seventeen years, no straight line</h2>
-    <p>
-      I started in call-center operations, not code — the kind of job where
-      you learn that a system's worth is measured by what happens when it's
-      under pressure, not by its architecture diagram. That instinct followed
-      me into IT project management, then into building and running the
-      product org at Zadip Group, where I still am.
-    </p>
-    <a class="see-all" href="/about/">The longer version →</a>
+  <section class="case-teaser container-wide">
+    <div class="proof-head">
+      <h2><i class="fa-solid fa-landmark"></i> Selected case studies</h2>
+      <a class="see-all" href="/work/">All case studies →</a>
+    </div>
+    <div class="case-grid">
+      {caseStudies.map((cs) => (
+        <a href={`/work/case-studies/${cs.id}/`} class="case-card">
+          <p class="client mono">{cs.data.client}</p>
+          <h3>{cs.data.title}</h3>
+          {cs.data.figures && cs.data.figures.length > 0 && (
+            <p class="figure mono">{cs.data.figures[0].value} — {cs.data.figures[0].label}</p>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="stack container-wide">
+    <div class="proof-head">
+      <h2><i class="fa-solid fa-microchip"></i> Core stack</h2>
+    </div>
+    <div class="stack-chips">
+      {stack.map((s) => (
+        <SkillChip icon={s.icon} label={s.label} />
+      ))}
+    </div>
   </section>
 
   <section class="parables-teaser container-wide">
-    <div class="parables-card">
-      <div class="parables-mark">T·P</div>
-      <div class="parables-copy">
-        <h2>Tech Parables</h2>
-        <p>Lessons from the stack, told straight — the blog is warming up. First posts incoming.</p>
-      </div>
-      <a class="cta ghost small" href="/tech-parables/">Visit →</a>
+    <div class="proof-head">
+      <h2><i class="fa-solid fa-book-open"></i> From Tech Parables</h2>
+      <a class="see-all" href="/tech-parables/">Visit the blog →</a>
+    </div>
+    <div class="case-grid">
+      {posts.map((post) =>
+        post.data.draft ? (
+          <div class="case-card soon">
+            <p class="client mono">Coming soon</p>
+            <h3>{post.data.title}</h3>
+            <p class="figure mono">Originally on LinkedIn — full post in progress</p>
+          </div>
+        ) : (
+          <a href={`/tech-parables/${post.id}/`} class="case-card">
+            <p class="client mono">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</p>
+            <h3>{post.data.title}</h3>
+            <p class="figure mono">{post.data.description}</p>
+          </a>
+        )
+      )}
     </div>
   </section>
 </BaseLayout>
 
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    document.querySelectorAll('.revenue-chart').forEach((chart) => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            chart.classList.add('in-view');
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(chart);
+    });
+  }
+</script>
+
 <style>
   .hero {
-    padding-block: 72px 56px;
+    padding-block: 64px 48px;
   }
-  .hero .kicker {
+  .hero-copy .kicker {
     margin-bottom: 18px;
   }
-  .hero h1 {
-    font-size: clamp(30px, 4.6vw, 44px);
+  .hero-copy h1 {
+    font-size: clamp(28px, 3.6vw, 42px);
     line-height: 1.18;
-    max-width: 18ch;
+    max-width: 22ch;
   }
-  .hero .lede {
+  .hero-copy .lede {
     margin-top: 22px;
     max-width: 62ch;
     color: var(--text-muted);
-    font-size: 16.5px;
+    font-size: 16px;
     line-height: 1.7;
   }
   .cta-row {
-    margin-top: 32px;
+    margin-top: 30px;
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
@@ -112,52 +216,149 @@ const products = (await getCollection('products', ({ data }) => !data.draft))
     background: var(--accent);
     color: var(--accent-ink);
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
   .cta.ghost {
     background: transparent;
     color: var(--text);
     border: 1px solid var(--border);
   }
-  .cta.small {
-    padding: 9px 16px;
+
+  .hero-photo {
+    position: relative;
+    margin-top: 36px;
+  }
+  .photo-frame {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: grayscale(0.55) contrast(1.08) brightness(0.92) sepia(0.12);
+  }
+  .photo-placeholder {
+    display: none;
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--text-faint);
+    background: radial-gradient(circle at 50% 35%, var(--surface-2), var(--surface));
+  }
+  .photo-placeholder i {
+    font-size: 40px;
+    color: var(--border);
+  }
+  .photo-placeholder span {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .photo-frame.no-photo .photo-placeholder {
+    display: flex;
+  }
+  .quote-chip {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    right: 20px;
+    max-width: 420px;
+    margin: 0;
+    background: rgba(23, 29, 39, 0.88);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.5;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+  .quote-chip .mark {
+    color: var(--accent);
+  }
+  .quote-chip .attrib {
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--text-faint);
+    font-weight: 400;
   }
 
-  .quote-block {
-    padding-block: 8px 64px;
+  section.impact,
+  section.proof,
+  section.case-teaser,
+  section.stack,
+  section.parables-teaser {
+    padding-block: 48px;
+    border-top: 1px solid var(--border-soft);
   }
-  .quote-block blockquote {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(22px, 3.2vw, 30px);
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--text);
-    max-width: 44ch;
-    text-wrap: balance;
+
+  .section-eyebrow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
   }
-  .quote-block .mark {
-    color: var(--accent);
-    margin-right: 2px;
-  }
-  .quote-block .attrib {
-    margin-top: 14px;
-    font-size: 11.5px;
+  .section-eyebrow .note {
+    font-size: 11px;
     color: var(--text-faint);
   }
 
-  .proof {
-    padding-block: 56px;
-    border-top: 1px solid var(--border-soft);
+  .impact-chart {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    padding: 28px 28px 18px;
   }
+  .revenue-chart { width: 100%; height: auto; display: block; overflow: visible; }
+  .revenue-chart .dip-band { fill: var(--surface-2); }
+  .revenue-chart .dip-label { font-family: var(--font-mono); font-size: 10.5px; fill: var(--text-faint); text-anchor: middle; }
+  .revenue-chart .area { fill: url(#revFade); opacity: 0; transition: opacity 1.1s ease 0.2s; }
+  .revenue-chart .line { stroke: var(--accent); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; pathLength: 1; transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 0.8, 0.3, 1); }
+  .revenue-chart.in-view .area { opacity: 1; }
+  .revenue-chart.in-view .line { stroke-dashoffset: 0; }
+  .revenue-chart .axis-label, .revenue-chart .start-label { font-family: var(--font-mono); font-size: 11px; fill: var(--text-faint); }
+  .revenue-chart .end-dot { fill: var(--accent); }
+  .revenue-chart .end-dot.pulse { animation: node-pulse 2.4s ease-in-out infinite; }
+  .revenue-chart .end-label { font-family: var(--font-mono); font-size: 17px; fill: var(--accent); font-weight: 600; }
+  .revenue-chart .end-sub { font-family: var(--font-mono); font-size: 10.5px; fill: var(--text-faint); }
+  @keyframes node-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .revenue-chart .area { transition: none; opacity: 1; }
+    .revenue-chart .line { transition: none; stroke-dashoffset: 0; }
+    .revenue-chart .end-dot.pulse { animation: none; }
+  }
+
   .proof-head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
+    margin-bottom: 24px;
   }
-  .proof h2 {
-    font-size: 20px;
+  .proof-head h2 {
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .proof-head h2 i {
+    color: var(--accent);
+    font-size: 16px;
   }
   .see-all {
     font-family: var(--font-mono);
@@ -165,19 +366,22 @@ const products = (await getCollection('products', ({ data }) => !data.draft))
     color: var(--accent);
     text-decoration: none;
   }
+
   .logo-strip {
-    margin-top: 28px;
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
   }
   .logo-chip {
+    width: 150px;
+    height: 68px;
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--surface);
-    padding: 16px 22px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 14px;
     transition: border-color 0.2s ease, transform 0.2s ease;
   }
   .logo-chip:hover {
@@ -185,67 +389,84 @@ const products = (await getCollection('products', ({ data }) => !data.draft))
     transform: translateY(-2px);
   }
   .logo-chip img {
-    height: 26px;
+    max-height: 100%;
+    max-width: 100%;
     width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
-  .bio-teaser {
-    padding-block: 56px;
-    border-top: 1px solid var(--border-soft);
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
   }
-  .bio-teaser h2 {
-    font-size: 20px;
+  .case-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 20px 22px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
-  .bio-teaser p {
-    margin-top: 16px;
-    max-width: 68ch;
-    color: var(--text-muted);
-    line-height: 1.75;
+  .case-card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-2px);
   }
-  .bio-teaser .see-all {
-    display: inline-block;
-    margin-top: 16px;
+  .case-card.soon {
+    opacity: 0.6;
+  }
+  .case-card.soon:hover {
+    transform: none;
+    border-color: var(--border);
+  }
+  .case-card .client {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .case-card h3 {
+    font-size: 15.5px;
+    line-height: 1.35;
+  }
+  .case-card .figure {
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-top: 4px;
   }
 
-  .parables-teaser {
-    padding-block: 56px 80px;
-    border-top: 1px solid var(--border-soft);
+  .stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
+
   .parables-card {
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 12px;
     background: var(--surface);
-    padding: 30px 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .parables-mark {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-label);
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-  .parables-copy {
-    flex: 1;
-    min-width: 220px;
-  }
-  .parables-copy h2 {
-    font-size: 19px;
-  }
-  .parables-copy p {
-    margin-top: 6px;
+    padding: 22px 24px;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 560px) {
+    .photo-frame {
+      aspect-ratio: 4 / 3;
+    }
+    .quote-chip {
+      position: static;
+      margin-top: 14px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: none;
+      max-width: none;
+    }
   }
 </style>
